@@ -1,6 +1,8 @@
 package learn.field_agent.controllers;
 
 
+import learn.field_agent.domain.Result;
+import learn.field_agent.domain.ResultType;
 import learn.field_agent.domain.SecurityClearanceService;
 import learn.field_agent.models.Agency;
 import learn.field_agent.models.SecurityClearance;
@@ -33,5 +35,15 @@ public class SecurityClearanceController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(securityClearance);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<SecurityClearance> add(@RequestBody SecurityClearance securityClearance) {
+        Result<SecurityClearance> result = securityClearanceService.add(securityClearance);
+        if (result.getType() == ResultType.INVALID) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 }

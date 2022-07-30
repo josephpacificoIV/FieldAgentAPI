@@ -26,7 +26,7 @@ class SecurityClearanceServiceTest {
 
     @Test
     void shouldFindAllSecurityClearances() {
-        
+
     }
 
     @Test
