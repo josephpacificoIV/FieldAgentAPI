@@ -1,10 +1,8 @@
 package learn.field_agent.domain;
 
-import learn.field_agent.data.SecurityClearanceJdbcTemplateRepository;
 import learn.field_agent.data.SecurityClearanceRepository;
 import learn.field_agent.models.Agent;
 import learn.field_agent.models.SecurityClearance;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +34,25 @@ public class SecurityClearanceService {
 
         SecurityClearance p = securityClearanceRepository.add(securityClearance);
         result.setPayload(p);
+        return result;
+    }
+
+    public Result<SecurityClearance> update(SecurityClearance clearance) {
+        Result<SecurityClearance> result = validate(clearance);
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        if (clearance.getSecurityClearanceId() <= 0) {
+            result.addMessage("Security Clearance ID must be set for `update` operation", ResultType.INVALID);
+            return result;
+        }
+
+        if (!securityClearanceRepository.update(clearance)) {
+            String msg = String.format("Security Clearance ID: %s, not found", clearance.getSecurityClearanceId());
+            result.addMessage(msg, ResultType.NOT_FOUND);
+        }
+
         return result;
     }
 

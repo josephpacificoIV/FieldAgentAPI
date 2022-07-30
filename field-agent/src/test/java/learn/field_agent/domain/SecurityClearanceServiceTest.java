@@ -63,4 +63,36 @@ class SecurityClearanceServiceTest {
         assertEquals(ResultType.INVALID, result.getType());
         assertNull(result.getPayload());
     }
+
+    @Test
+    void shouldUpdate() {
+        SecurityClearance clearance = new SecurityClearance(2, "Back to Top Secret");
+
+        when(securityClearanceRepository.update(clearance)).thenReturn(true);
+        Result<SecurityClearance> actual = securityClearanceService.update(clearance);
+        assertEquals(ResultType.SUCCESS, actual.getType());
+    }
+
+    @Test
+    void shouldNotUpdateMissing() {
+        SecurityClearance clearance = new SecurityClearance(35, "TEST");
+
+        when(securityClearanceRepository.update(clearance)).thenReturn(false);
+        Result<SecurityClearance> actual = securityClearanceService.update(clearance);
+        assertEquals(ResultType.NOT_FOUND, actual.getType());
+    }
+
+    @Test
+    void shouldNotUpdateWhenInvalid() {
+        SecurityClearance clearance = new SecurityClearance(35, null);
+
+        Result<SecurityClearance> actual = securityClearanceService.update(clearance);
+        assertEquals(ResultType.INVALID, actual.getType());
+
+        clearance.setName("  ");
+        actual = securityClearanceService.update(clearance);
+        assertEquals(ResultType.INVALID, actual.getType());
+
+    }
+
 }

@@ -46,4 +46,22 @@ public class SecurityClearanceController {
         }
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
+
+    @PutMapping("/{security_clearance_id}")
+    public ResponseEntity<Void> update(@PathVariable int security_clearance_id, @RequestBody SecurityClearance clearance) {
+
+        // id conflict. stop immediately.
+        if (security_clearance_id != clearance.getSecurityClearanceId()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        // 4. ResultType -> HttpStatus
+        Result<SecurityClearance> result = securityClearanceService.update(clearance);
+        if (result.getType() == ResultType.INVALID) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else if (result.getType() == ResultType.NOT_FOUND) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

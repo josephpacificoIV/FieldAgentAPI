@@ -9,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class SecurityClearanceJdbcTemplateRepositoryTest {
@@ -65,6 +64,27 @@ class SecurityClearanceJdbcTemplateRepositoryTest {
 
         assertNotNull(actual);
         assertEquals(securityClearance, actual);
+    }
+
+    @Test
+    void shouldUpdateExisting() {
+        SecurityClearance clearance = new SecurityClearance();
+        clearance.setSecurityClearanceId(2);
+        clearance.setName("Not Top Secret");
+
+
+        assertTrue(repository.update(clearance));
+        assertEquals(clearance, repository.findById(2));
+    }
+
+    @Test
+    void shouldNotUpdateMissing() {
+        SecurityClearance clearance = new SecurityClearance();
+        clearance.setSecurityClearanceId(20000);
+        clearance.setName("Missing Clearance");
+
+
+        assertFalse(repository.update(clearance));
     }
 
 
