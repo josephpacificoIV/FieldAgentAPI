@@ -41,3 +41,12 @@ set sql_safe_updates = 1;
 
 -- DELETE FROM security_clearance sc 
 -- WHERE sc.security_clearance_id = 1 NOT IN (SELECT distinct aa.security_clearance_id FROM agency_agent aa );
+
+
+-- ===========================Alias
+-- data
+
+insert into alias values
+	(1, 'Hazel C Sauven', 'Mr. Potato', 1),
+    (2, 'Claudian C O\'Lynn', 'Mrs. Potato', 2);
+select * from alias;
