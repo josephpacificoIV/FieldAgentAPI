@@ -88,6 +88,12 @@ class SecurityClearanceJdbcTemplateRepositoryTest {
     }
 
 
+    @Test
+    void shouldDelete() {
+        assertTrue(repository.deleteById(2));
+        assertFalse(repository.deleteById(2));
+    }
+
 
 
 }
