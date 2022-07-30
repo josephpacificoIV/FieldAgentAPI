@@ -15,6 +15,6 @@ public interface SecurityClearanceRepository {
 
     boolean update(SecurityClearance securityClearance);
 
-    @Transactional
+    // @Transactional
     boolean deleteById(int securityClearanceId);
 }

@@ -64,4 +64,12 @@ public class SecurityClearanceController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @DeleteMapping("/{securityClearanceId}")
+    public ResponseEntity<Void> deleteById(@PathVariable int securityClearanceId) {
+        if (securityClearanceService.deleteById(securityClearanceId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
