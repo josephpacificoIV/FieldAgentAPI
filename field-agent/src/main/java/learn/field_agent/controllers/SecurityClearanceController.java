@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
@@ -70,6 +71,13 @@ public class SecurityClearanceController {
         if (securityClearanceService.deleteById(securityClearanceId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
+        if (securityClearanceService.findById(securityClearanceId) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else if(Objects.equals(securityClearanceService.findById(securityClearanceId).getSecurityClearanceId(), securityClearanceId)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
