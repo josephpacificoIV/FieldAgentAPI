@@ -95,4 +95,18 @@ class SecurityClearanceServiceTest {
 
     }
 
+
+    /* Delete Tests */
+    @Test
+    void shouldNotDeleteMissingSecurityClearance() {
+        when(securityClearanceRepository.deleteById(10)).thenReturn(false);
+        assertFalse(securityClearanceService.deleteById(10));
+    }
+
+    @Test
+    void shouldDelete() {
+        when(securityClearanceRepository.deleteById(1)).thenReturn(true);
+        assertTrue(securityClearanceService.deleteById(1));
+    }
+
 }

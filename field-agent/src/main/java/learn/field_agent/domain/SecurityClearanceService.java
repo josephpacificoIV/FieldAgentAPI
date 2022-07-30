@@ -22,8 +22,8 @@ public class SecurityClearanceService {
         return securityClearanceRepository.findAll();
     }
 
-    public SecurityClearance findById(int agentId) {
-        return securityClearanceRepository.findById(agentId);
+    public SecurityClearance findById(int securityClearanceId) {
+        return securityClearanceRepository.findById(securityClearanceId);
     }
 
     public Result<SecurityClearance> add(SecurityClearance securityClearance) {
@@ -55,6 +55,11 @@ public class SecurityClearanceService {
 
         return result;
     }
+
+    public boolean deleteById(int securityClearanceId) {
+        return securityClearanceRepository.deleteById(securityClearanceId);
+    }
+
 
     private Result<SecurityClearance> validate(SecurityClearance securityClearance) {
         Result<SecurityClearance> result = new Result<>();
