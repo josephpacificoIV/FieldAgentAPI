@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class SecurityClearanceJdbcTemplateRepositoryTest {
@@ -52,4 +53,21 @@ class SecurityClearanceJdbcTemplateRepositoryTest {
         assertEquals(clearances.get(1).getName(), actual.get(1).getName());
 
     }
+
+    @Test
+    void shouldAddSecurityClearance(){
+        SecurityClearance securityClearance = new SecurityClearance();
+        securityClearance.setSecurityClearanceId(3);
+        securityClearance.setName("Top Top Secret");
+
+        SecurityClearance actual = repository.add(securityClearance);
+
+
+        assertNotNull(actual);
+        assertEquals(securityClearance, actual);
+    }
+
+
+
+
 }
