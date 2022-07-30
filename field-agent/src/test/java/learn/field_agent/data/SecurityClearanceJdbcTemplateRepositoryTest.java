@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -35,5 +38,18 @@ class SecurityClearanceJdbcTemplateRepositoryTest {
 
         actual = repository.findById(3);
         assertEquals(null, actual);
+    }
+
+    @Test
+    void shouldFindAllSecurityClearances() {
+        List<SecurityClearance> clearances = new ArrayList<>();
+        clearances.add(new SecurityClearance(1, "Secret"));
+        clearances.add(new SecurityClearance(2, "Top Secret"));
+
+        List<SecurityClearance> actual = repository.findAll();
+
+        assertEquals(clearances.size(), actual.size());
+        assertEquals(clearances.get(1).getName(), actual.get(1).getName());
+
     }
 }

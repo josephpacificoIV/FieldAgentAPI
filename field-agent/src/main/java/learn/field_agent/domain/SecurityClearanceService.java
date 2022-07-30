@@ -1,25 +1,29 @@
 package learn.field_agent.domain;
 
 import learn.field_agent.data.SecurityClearanceJdbcTemplateRepository;
+import learn.field_agent.data.SecurityClearanceRepository;
 import learn.field_agent.models.Agent;
 import learn.field_agent.models.SecurityClearance;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SecurityClearanceService {
 
-    private final SecurityClearanceJdbcTemplateRepository repository;
+    private final SecurityClearanceRepository securityClearanceRepository;
 
 
-    public SecurityClearanceService(SecurityClearanceJdbcTemplateRepository repository) {
-        this.repository = repository;
+    public SecurityClearanceService(SecurityClearanceRepository securityClearanceRepository) {
+        this.securityClearanceRepository = securityClearanceRepository;
     }
 
     public List<SecurityClearance> findAll() {
-        return repository.findAll();
+        return securityClearanceRepository.findAll();
     }
 
     public SecurityClearance findById(int agentId) {
-        return repository.findById(agentId);
+        return securityClearanceRepository.findById(agentId);
     }
 }
