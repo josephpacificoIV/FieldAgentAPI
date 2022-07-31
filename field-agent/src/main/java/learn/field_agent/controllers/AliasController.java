@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
-@RequestMapping("/api")
+@RequestMapping("/api/alias")
 public class AliasController {
 
     private final AliasService service;
@@ -22,14 +22,14 @@ public class AliasController {
         this.agentService = agentService;
     }
 
-    @GetMapping("/agent/{agentId}")
+    /*@GetMapping("/agent/{agentId}")
     public ResponseEntity<Agent> findById(@PathVariable int agentId) {
         Agent agent = agentService.findById(agentId);
         if (agent == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(agent);
-    }
+    }*/
 
 
 }

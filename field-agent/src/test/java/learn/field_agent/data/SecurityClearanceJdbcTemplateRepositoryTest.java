@@ -69,12 +69,12 @@ class SecurityClearanceJdbcTemplateRepositoryTest {
     @Test
     void shouldUpdateExisting() {
         SecurityClearance clearance = new SecurityClearance();
-        clearance.setSecurityClearanceId(2);
+        clearance.setSecurityClearanceId(1);
         clearance.setName("Not Top Secret");
 
 
         assertTrue(repository.update(clearance));
-        assertEquals(clearance, repository.findById(2));
+        assertEquals(clearance, repository.findById(1));
     }
 
     @Test

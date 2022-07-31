@@ -30,7 +30,7 @@ public class SecurityClearanceJdbcTemplateRepository implements SecurityClearanc
     @Override
     public SecurityClearance findById(int securityClearanceId) {
 
-        final String sql = "select security_clearance_id, name "
+        final String sql = "select security_clearance_id, `name` as security_clearance_name "
                 + "from security_clearance "
                 + "where security_clearance_id = ?;";
 
@@ -42,7 +42,7 @@ public class SecurityClearanceJdbcTemplateRepository implements SecurityClearanc
     @Override
     public List<SecurityClearance> findAll() {
         // limit until we develop a paging solution
-        final String sql = "select security_clearance_id, name from security_clearance limit 1000;";
+        final String sql = "select security_clearance_id, name as security_clearance_name from security_clearance limit 1000;";
         return jdbcTemplate.query(sql, new SecurityClearanceMapper());
     }
 

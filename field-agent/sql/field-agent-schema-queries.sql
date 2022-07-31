@@ -52,4 +52,9 @@ from agent a
 left outer join alias al on al.agent_id = a.agent_id
 where a.agent_id = 2;
 
-select * from alias;
+select * from security_clearance;
+
+-- set sql_safe_updates = 0;
+-- update security_clearance 
+-- set security_clearance_id = `name`;
+-- set sql_safe_updates = 1;
