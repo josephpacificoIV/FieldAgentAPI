@@ -8,7 +8,6 @@ public class Alias {
     private int agent_id;
 
 
-
     public int getAliasId() {
         return aliasId;
     }

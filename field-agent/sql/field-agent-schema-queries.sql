@@ -46,5 +46,9 @@ set sql_safe_updates = 1;
 -- ===========================Alias
 -- data
 
-    
+select a.agent_id, a.first_name, a.middle_name, a.last_name, a.dob, a.height_in_inches, al.persona
+from agent a
+left outer join alias al on al.agent_id = a.agent_id
+where a.agent_id = 2;
+
 select * from alias;
