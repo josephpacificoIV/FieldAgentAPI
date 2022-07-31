@@ -7,6 +7,14 @@ public class Alias {
     private String persona;
     private int agent_id;
 
+    public Alias() {
+    }
+
+    public Alias(String name, String persona, int agent_id) {
+        this.name = name;
+        this.persona = persona;
+        this.agent_id = agent_id;
+    }
 
     public int getAliasId() {
         return aliasId;

@@ -40,6 +40,7 @@ class AliasJdbcTemplateRepositoryTest {
         alias.setPersona("Mr Mr Potato Head");
         alias.setAgent_id(1);
         alias.setAliasId(3);
+
         Alias actual = repository.add(alias);
         assertNotNull(actual);
         assertEquals(NEXT_ALIAS_ID, actual.getAliasId());

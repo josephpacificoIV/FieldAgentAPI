@@ -20,21 +20,42 @@ public class AliasService {
         return repository.findById(aliasId);
     }
 
-    /*public Result<Location> add(Location location) {
-        Result<Location> result = validate(location);
+    public Result<Alias> add(Alias alias) {
+        Result<Alias> result = validate(alias);
         if (!result.isSuccess()) {
             return result;
         }
 
-        if (location.getLocationId() != 0) {
-            result.addMessage("locationId cannot be set for `add` operation", ResultType.INVALID);
+        if (alias.getAliasId() != 0) {
+            result.addMessage("Alias Id cannot be set for `add` operation", ResultType.INVALID);
             return result;
         }
 
-        location = repository.add(location);
-        result.setPayload(location);
+        alias = repository.add(alias);
+        result.setPayload(alias);
         return result;
-    }*/
+    }
+
+    private Result<Alias> validate(Alias alias) {
+        Result<Alias> result = new Result<>();
+
+        if (alias == null) {
+            result.addMessage("Alias cannot be null", ResultType.INVALID);
+            return result;
+        }
+
+        if (Validations.isNullOrBlank(alias.getName())) {
+            result.addMessage("name is required", ResultType.INVALID);
+        }
+
+        if (repository.findById(alias.getAliasId()) != null &&
+                (alias.getPersona() == null || alias.getPersona().trim().length() <= 0)) {
+            result.addMessage("Persona is required for Agent with more than 1 alias", ResultType.INVALID);
+        }
+
+
+        return result;
+    }
 
 
 
