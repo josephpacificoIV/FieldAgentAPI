@@ -30,4 +30,6 @@ class AliasJdbcTemplateRepositoryTest {
         assertEquals(1, actual.getAliasId());
         assertEquals("Hazel C Sauven", actual.getName());
     }
+
+
 }

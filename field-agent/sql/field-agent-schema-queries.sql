@@ -46,7 +46,5 @@ set sql_safe_updates = 1;
 -- ===========================Alias
 -- data
 
-insert into alias values
-	(1, 'Hazel C Sauven', 'Mr. Potato', 1),
-    (2, 'Claudian C O\'Lynn', 'Mrs. Potato', 2);
+    
 select * from alias;
