@@ -60,17 +60,22 @@ class SecurityClearanceServiceTest {
     @Test
     void shouldNotAddDuplicateSecurityClearance() {
 
-        /*SecurityClearance clearance = new SecurityClearance(
-                10, "Security Clearance Test");
-        securityClearanceService.add(clearance);
+        List<SecurityClearance> clearances = List.of(
+                new SecurityClearance(1, "Top Secret"),
+                new SecurityClearance(2, "Secret")
+        );
 
-        SecurityClearance clearance_dup = new SecurityClearance(
-                11, "Security Clearance Test");
-        Result<SecurityClearance> result = securityClearanceService.add(clearance_dup);
+        SecurityClearance dup_clearance = new SecurityClearance(3, "Top Secret");
+        when(securityClearanceRepository.findAll()).thenReturn(clearances);
 
+        Result<SecurityClearance> result = securityClearanceService.add(dup_clearance);
+
+        // 6. Configure the per-test behavior for mock PetRepository.
 
         assertEquals(ResultType.INVALID, result.getType());
-        assertNull(result.getPayload());*/
+        assertNull(result.getPayload());
+
+
     }
 
     @Test

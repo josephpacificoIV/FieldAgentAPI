@@ -74,13 +74,13 @@ public class SecurityClearanceService {
         }
 
         if (result.isSuccess()) {
-            List<SecurityClearance> existingSecurityClearances = securityClearanceRepository.findAll();
+            List<SecurityClearance> clearances = securityClearanceRepository.findAll();
 
-            for (SecurityClearance existingSecurityClearance : existingSecurityClearances) {
+            for (SecurityClearance c : clearances) {
                 // If an existing security clearance was found for the provided **name** values
                 // add an error message if the id values don't match (i.e. they're not the same record).
-                if (existingSecurityClearance.getSecurityClearanceId() != securityClearance.getSecurityClearanceId() &&
-                        Objects.equals(existingSecurityClearance.getName(), securityClearance.getName())) {
+                if (c.getSecurityClearanceId() != securityClearance.getSecurityClearanceId() &&
+                        Objects.equals(c.getName(), securityClearance.getName())) {
                     result.addMessage("Security Clearance name must be unique.", ResultType.INVALID);
                 }
             }
