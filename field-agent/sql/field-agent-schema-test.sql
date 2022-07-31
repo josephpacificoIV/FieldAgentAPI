@@ -99,7 +99,7 @@ create table alias (
 delimiter //
 create procedure set_known_good_state()
 begin
-
+	
 	delete from location;
     alter table location auto_increment = 1;
     delete from agency_agent;
@@ -138,11 +138,11 @@ begin
 		('Ulises','B','Muhammad','2008-04-01',80),
 		('Phylys','Y','Howitt','1979-03-28',68);
         
-	insert into security_clearance values
+	insert into security_clearance(security_clearance_id, `name`) values
     (1, 'Secret'),
     (2, 'Top Secret');
     
-    insert into alias values
+    insert into alias(alias_id, `name`, persona, agent_id) values
 	(1, 'Hazel C Sauven', 'Mr. Potato', 1),
     (2, 'Claudian C O\'Lynn', 'Mrs. Potato', 2);
 

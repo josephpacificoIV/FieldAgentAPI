@@ -14,6 +14,7 @@ from agency_agent;
 -- left join security_clearance sc on sc.security_clearance_id = aa.security_clearance_id
 -- where sc.security_clearance_id is null;
 
+-- delete a security clearance by ID that is not used in agency_agent table
 set sql_safe_updates = 0;
 
 delete sc from security_clearance sc 

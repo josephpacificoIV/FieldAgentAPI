@@ -28,6 +28,14 @@ class AgentJdbcTemplateRepositoryTest {
     }
 
     @Test
+    void shouldFindHazel() {
+        Agent hazel = repository.findById(1);
+        assertEquals(1, hazel.getAgentId());
+        assertEquals("Hazel", hazel.getFirstName());
+        assertEquals(2, hazel.getAgencies().size());
+    }
+
+    @Test
     void shouldFindAll() {
         List<Agent> agents = repository.findAll();
         assertNotNull(agents);
@@ -38,13 +46,7 @@ class AgentJdbcTemplateRepositoryTest {
         assertTrue(agents.size() >= 7 && agents.size() <= 10);
     }
 
-    @Test
-    void shouldFindHazel() {
-        Agent hazel = repository.findById(1);
-        assertEquals(1, hazel.getAgentId());
-        assertEquals("Hazel", hazel.getFirstName());
-        assertEquals(2, hazel.getAgencies().size());
-    }
+
 
     @Test
     void shouldAdd() {
