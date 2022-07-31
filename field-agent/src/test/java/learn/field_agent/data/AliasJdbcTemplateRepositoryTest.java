@@ -15,13 +15,13 @@ class AliasJdbcTemplateRepositoryTest {
     @Autowired
     AliasJdbcTemplateRepository repository;
 
-    /*@Autowired
+    @Autowired
     KnownGoodState knownGoodState;
 
     @BeforeEach
     void setup() {
         knownGoodState.set();
-    }*/
+    }
 
     @Test
     void shouldFindAlias() {
