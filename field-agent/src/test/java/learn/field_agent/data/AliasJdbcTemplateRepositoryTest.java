@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class AliasJdbcTemplateRepositoryTest {
 
+    final static int NEXT_ALIAS_ID = 3;
+
     @Autowired
     AliasJdbcTemplateRepository repository;
 
@@ -29,6 +31,18 @@ class AliasJdbcTemplateRepositoryTest {
         assertNotNull(actual);
         assertEquals(1, actual.getAliasId());
         assertEquals("Hazel C Sauven", actual.getName());
+    }
+
+    @Test
+    void shouldAddNewAlias() {
+        Alias alias = new Alias();
+        alias.setName("Hazel C Sauven");
+        alias.setPersona("Mr Mr Potato Head");
+        alias.setAgent_id(1);
+        alias.setAliasId(3);
+        Alias actual = repository.add(alias);
+        assertNotNull(actual);
+        assertEquals(NEXT_ALIAS_ID, actual.getAliasId());
     }
 
 

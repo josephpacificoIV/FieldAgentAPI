@@ -47,14 +47,13 @@ set sql_safe_updates = 1;
 -- ===========================Alias
 -- data
 
-select a.agent_id, a.first_name, a.middle_name, a.last_name, a.dob, a.height_in_inches, al.persona
-from agent a
-left outer join alias al on al.agent_id = a.agent_id
-where a.agent_id = 2;
+-- merging alias to agent name
+-- select a.agent_id, a.first_name, a.middle_name, a.last_name, a.dob, a.height_in_inches, al.persona
+-- from agent a
+-- inner join alias al on al.agent_id = a.agent_id
+-- where a.agent_id = 2;
 
-select * from security_clearance;
 
--- set sql_safe_updates = 0;
--- update security_clearance 
--- set security_clearance_id = `name`;
--- set sql_safe_updates = 1;
+select * from alias
+
+

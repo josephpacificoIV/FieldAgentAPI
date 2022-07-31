@@ -5,7 +5,12 @@ import learn.field_agent.data.mappers.LocationMapper;
 import learn.field_agent.models.Alias;
 import learn.field_agent.models.Location;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 @Repository
 public class AliasJdbcTemplateRepository implements AliasRepository{
@@ -32,6 +37,26 @@ public class AliasJdbcTemplateRepository implements AliasRepository{
 
     @Override
     public Alias add(Alias alias) {
-        return null;
+
+        final String sql = "insert into alias (name, persona, agent_id)"
+                + "values (?,?,?);";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int rowsAffected = jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, alias.getName());
+            ps.setString(2, alias.getPersona());
+            ps.setInt(3, alias.getAgent_id());
+            return ps;
+        }, keyHolder);
+
+        if (rowsAffected <= 0) {
+            return null;
+        }
+
+        alias.setAliasId(keyHolder.getKey().intValue());
+        return alias;
     }
+
+
 }
