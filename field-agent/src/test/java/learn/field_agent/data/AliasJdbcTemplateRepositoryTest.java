@@ -1,6 +1,7 @@
 package learn.field_agent.data;
 
 import learn.field_agent.models.Alias;
+import learn.field_agent.models.SecurityClearance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,33 @@ class AliasJdbcTemplateRepositoryTest {
         Alias actual = repository.add(alias);
         assertNotNull(actual);
         assertEquals(NEXT_ALIAS_ID, actual.getAliasId());
+    }
+
+
+    @Test
+    void shouldUpdateExisting() {
+        Alias alias = new Alias();
+        alias.setAliasId(1);
+        alias.setName("New Name");
+        alias.setPersona("New Persona");
+        alias.setAgentId(1);
+
+
+        assertTrue(repository.update(alias));
+        assertEquals(alias.getName(), repository.findById(1).getName());
+    }
+
+    @Test
+    void shouldNotUpdateMissingAlias() {
+        Alias alias = new Alias();
+        alias.setAliasId(20);
+        alias.setName("New Name");
+        alias.setPersona("New Persona");
+        alias.setAgentId(1);
+
+
+        assertFalse(repository.update(alias));
+        //assertEquals(alias.getName(), repository.findById(1).getName());
     }
 
 
