@@ -1,6 +1,7 @@
 package learn.field_agent.domain;
 
 import learn.field_agent.data.AliasRepository;
+import learn.field_agent.models.Agency;
 import learn.field_agent.models.Alias;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,11 @@ class AliasServiceTest {
     void shouldNotAddAliasWithoutPersonaIfAgentAlreadyHasAlias() {
 
         List<Alias> aliases = List.of(
-                new Alias("Agent Name", "Mrs. Puff", 1),
-                new Alias("Agent 2", "Mr. Krabs", 2)
+                new Alias(1, "Agent Name", "Mrs. Puff", 1),
+                new Alias(2, "Agent 2", "Mr. Krabs", 2)
         );
 
-        Alias alias = new Alias("Agent Name", "", 1);
+        Alias alias = new Alias(1, "Agent Name", "", 1);
         when(repository.findById(alias.getAgentId())).thenReturn(aliases.get(1));
 
         Result<Alias> result = service.add(alias);
@@ -58,11 +59,14 @@ class AliasServiceTest {
     void shouldAddAliasWithoutPersonaIfAgentDoesNotHaveAlias() {
 
         List<Alias> aliases = List.of(
-                new Alias("Agent Name", "Mrs. Puff", 1),
-                new Alias("Agent 2", "Mr. Krabs", 2)
+                new Alias(1, "Agent Name", "Mrs. Puff", 1),
+                new Alias(2, "Agent 2", "Mr. Krabs", 2)
         );
 
-        Alias alias = new Alias("Agent 3", "", 3);
+        Alias alias = new Alias();
+        alias.setName("Agent 3");
+        alias.setPersona("");
+        alias.setAgentId(3);
 
         when(repository.findById(alias.getAgentId())).thenReturn(null);
 
@@ -79,11 +83,11 @@ class AliasServiceTest {
     void shouldNotAddIfNameIsMissing() {
 
         List<Alias> aliases = List.of(
-                new Alias("Agent Name", "Mrs. Puff", 1),
-                new Alias("Agent 2", "Mr. Krabs", 2)
+                new Alias(1, "Agent Name", "Mrs. Puff", 1),
+                new Alias(2, "Agent 2", "Mr. Krabs", 2)
         );
 
-        Alias alias = new Alias("", "Agent Persona", 1);
+        Alias alias = new Alias(3, "", "Agent Persona", 1);
         when(repository.findById(alias.getAgentId())).thenReturn(aliases.get(1));
 
         Result<Alias> result = service.add(alias);
@@ -99,11 +103,14 @@ class AliasServiceTest {
     void shouldAddAliasWithPersonaIfAgentAlreadyHasAlias() {
 
         List<Alias> aliases = List.of(
-                new Alias("Agent Name", "Mrs. Puff", 1),
-                new Alias("Agent 2", "Mr. Krabs", 2)
+                new Alias(1, "Agent Name", "Mrs. Puff", 1),
+                new Alias(2, "Agent 2", "Mr. Krabs", 2)
         );
 
-        Alias alias = new Alias("Agent Name", "new persona", 1);
+        Alias alias = new Alias();
+        alias.setName("Agent Name");
+        alias.setPersona("new persona");
+        alias.setAgentId(1);
         when(repository.findById(alias.getAgentId())).thenReturn(aliases.get(1));
 
         Result<Alias> result = service.add(alias);
@@ -113,6 +120,21 @@ class AliasServiceTest {
         assertEquals(ResultType.SUCCESS, result.getType());
         assertNull(result.getPayload());
 
+    }
+
+
+    @Test
+    void shouldUpdate() {
+
+        List<Alias> aliases = List.of(
+                new Alias(1, "Agent Name", "Mrs. Puff", 1),
+                new Alias(2, "Agent 2", "Mr. Krabs", 2)
+        );
+        Alias alias = new Alias(1, "Mrs. Krabs", "TEST", 2);
+
+        when(repository.update(alias)).thenReturn(true);
+        Result<Alias> actual = service.update(alias);
+        assertEquals(ResultType.SUCCESS, actual.getType());
     }
 
 

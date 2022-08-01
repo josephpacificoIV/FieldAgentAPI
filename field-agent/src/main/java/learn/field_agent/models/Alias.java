@@ -10,7 +10,8 @@ public class Alias {
     public Alias() {
     }
 
-    public Alias(String name, String persona, int agentId) {
+    public Alias(int aliasId, String name, String persona, int agentId) {
+        this.aliasId = aliasId;
         this.name = name;
         this.persona = persona;
         this.agentId = agentId;

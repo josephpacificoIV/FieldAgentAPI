@@ -142,9 +142,9 @@ begin
     (1, 'Secret'),
     (2, 'Top Secret');
     
-    insert into alias(alias_id, `name`, persona, agent_id) values
-	(1, 'Hazel C Sauven', 'Mr. Potato', 1),
-    (2, 'Claudian C O\'Lynn', 'Mrs. Potato', 2);
+    -- insert into alias(alias_id, `name`, persona, agent_id) values
+-- 	(1, 'Hazel C Sauven', 'Mr. Potato', 1),
+--     (2, 'Claudian C O\'Lynn', 'Mrs. Potato', 2);
 
         
 	insert into agency_agent 

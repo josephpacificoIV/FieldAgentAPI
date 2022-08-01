@@ -54,6 +54,8 @@ set sql_safe_updates = 1;
 -- where a.agent_id = 2;
 
 
-select * from alias
+select * from alias;
+
+
 
 

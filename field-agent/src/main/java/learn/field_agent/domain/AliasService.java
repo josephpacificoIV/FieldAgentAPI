@@ -1,6 +1,7 @@
 package learn.field_agent.domain;
 
 import learn.field_agent.data.AliasRepository;
+import learn.field_agent.models.Agent;
 import learn.field_agent.models.Alias;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,25 @@ public class AliasService {
 
         alias = repository.add(alias);
         result.setPayload(alias);
+        return result;
+    }
+
+    public Result<Alias> update(Alias alias) {
+        Result<Alias> result = validate(alias);
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        if (alias.getAgentId() <= 0) {
+            result.addMessage("Alias ID must be set for `update` operation", ResultType.INVALID);
+            return result;
+        }
+
+        if (!repository.update(alias)) {
+            String msg = String.format("Alias ID: %s, not found", alias.getAgentId());
+            result.addMessage(msg, ResultType.NOT_FOUND);
+        }
+
         return result;
     }
 

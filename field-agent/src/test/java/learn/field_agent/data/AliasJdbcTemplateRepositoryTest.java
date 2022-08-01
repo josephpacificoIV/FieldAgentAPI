@@ -48,7 +48,7 @@ class AliasJdbcTemplateRepositoryTest {
 
 
     @Test
-    void shouldUpdateExisting() {
+    void shouldUpdateExistingAlias() {
         Alias alias = new Alias();
         alias.setAliasId(1);
         alias.setName("New Name");
