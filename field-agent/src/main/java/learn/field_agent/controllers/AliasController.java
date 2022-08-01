@@ -3,6 +3,7 @@ package learn.field_agent.controllers;
 
 import learn.field_agent.domain.AgentService;
 import learn.field_agent.domain.AliasService;
+import learn.field_agent.domain.Result;
 import learn.field_agent.models.Agent;
 import learn.field_agent.models.Alias;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,15 @@ public class AliasController {
         }
         return ResponseEntity.ok(agent);
     }*/
+
+    @PostMapping
+    public ResponseEntity<Object> add(@RequestBody Alias alias) {
+        Result<Alias> result = service.add(alias);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
+        }
+        return ErrorResponse.build(result);
+    }
 
 
 }

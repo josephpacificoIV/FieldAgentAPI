@@ -48,8 +48,8 @@ public class AliasService {
             result.addMessage("name is required", ResultType.INVALID);
         }
 
-        if (repository.findById(alias.getAliasId()) != null &&
-                (alias.getPersona() == null || alias.getPersona().trim().length() <= 0)) {
+        if (repository.findById(alias.getAgent_id()) != null &&
+                (alias.getPersona() == null || alias.getPersona().trim().length() == 0)){
             result.addMessage("Persona is required for Agent with more than 1 alias", ResultType.INVALID);
         }
 
