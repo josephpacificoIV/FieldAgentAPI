@@ -1,12 +1,8 @@
 package learn.field_agent.domain;
 
 import learn.field_agent.data.AliasRepository;
-import learn.field_agent.data.LocationRepository;
-import learn.field_agent.models.Agent;
 import learn.field_agent.models.Alias;
-import learn.field_agent.models.SecurityClearance;
 import org.junit.jupiter.api.Test;
-import org.mockito.exceptions.misusing.UnfinishedStubbingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -31,7 +27,7 @@ class AliasServiceTest {
         expected.setAliasId(1);
         expected.setName("Hazel C Sauven");
         expected.setPersona("Mr. Potato");
-        expected.setAgent_id(1);
+        expected.setAgentId(1);
 
         when(repository.findById(1)).thenReturn(expected);
         Alias actual = service.findById(1);
@@ -47,7 +43,7 @@ class AliasServiceTest {
         );
 
         Alias alias = new Alias("Agent Name", "", 1);
-        when(repository.findById(alias.getAgent_id())).thenReturn(aliases.get(1));
+        when(repository.findById(alias.getAgentId())).thenReturn(aliases.get(1));
 
         Result<Alias> result = service.add(alias);
 
@@ -68,7 +64,7 @@ class AliasServiceTest {
 
         Alias alias = new Alias("Agent 3", "", 3);
 
-        when(repository.findById(alias.getAgent_id())).thenReturn(null);
+        when(repository.findById(alias.getAgentId())).thenReturn(null);
 
         Result<Alias> result = service.add(alias);
 
@@ -88,7 +84,7 @@ class AliasServiceTest {
         );
 
         Alias alias = new Alias("", "Agent Persona", 1);
-        when(repository.findById(alias.getAgent_id())).thenReturn(aliases.get(1));
+        when(repository.findById(alias.getAgentId())).thenReturn(aliases.get(1));
 
         Result<Alias> result = service.add(alias);
 
@@ -108,7 +104,7 @@ class AliasServiceTest {
         );
 
         Alias alias = new Alias("Agent Name", "new persona", 1);
-        when(repository.findById(alias.getAgent_id())).thenReturn(aliases.get(1));
+        when(repository.findById(alias.getAgentId())).thenReturn(aliases.get(1));
 
         Result<Alias> result = service.add(alias);
 

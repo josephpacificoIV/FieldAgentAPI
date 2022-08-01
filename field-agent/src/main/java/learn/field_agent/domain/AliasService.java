@@ -2,7 +2,6 @@ package learn.field_agent.domain;
 
 import learn.field_agent.data.AliasRepository;
 import learn.field_agent.models.Alias;
-import learn.field_agent.models.Location;
 import org.springframework.stereotype.Service;
 
 
@@ -48,7 +47,7 @@ public class AliasService {
             result.addMessage("name is required", ResultType.INVALID);
         }
 
-        if (repository.findById(alias.getAgent_id()) != null &&
+        if (repository.findById(alias.getAgentId()) != null &&
                 (alias.getPersona() == null || alias.getPersona().trim().length() == 0)){
             result.addMessage("Persona is required for Agent with more than 1 alias", ResultType.INVALID);
         }

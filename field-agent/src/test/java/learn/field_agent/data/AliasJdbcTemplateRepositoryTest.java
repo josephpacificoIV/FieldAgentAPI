@@ -1,7 +1,6 @@
 package learn.field_agent.data;
 
 import learn.field_agent.models.Alias;
-import learn.field_agent.models.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ class AliasJdbcTemplateRepositoryTest {
         Alias alias = new Alias();
         alias.setName("Hazel C Sauven");
         alias.setPersona("Mr Mr Potato Head");
-        alias.setAgent_id(1);
+        alias.setAgentId(1);
         alias.setAliasId(3);
 
         Alias actual = repository.add(alias);

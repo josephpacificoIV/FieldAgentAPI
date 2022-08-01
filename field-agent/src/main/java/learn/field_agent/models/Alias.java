@@ -5,15 +5,15 @@ public class Alias {
     private int aliasId;
     private String name;
     private String persona;
-    private int agent_id;
+    private int agentId;
 
     public Alias() {
     }
 
-    public Alias(String name, String persona, int agent_id) {
+    public Alias(String name, String persona, int agentId) {
         this.name = name;
         this.persona = persona;
-        this.agent_id = agent_id;
+        this.agentId = agentId;
     }
 
     public int getAliasId() {
@@ -40,12 +40,12 @@ public class Alias {
         this.persona = persona;
     }
 
-    public int getAgent_id() {
-        return agent_id;
+    public int getAgentId() {
+        return agentId;
     }
 
-    public void setAgent_id(int agent_id) {
-        this.agent_id = agent_id;
+    public void setAgentId(int agentId) {
+        this.agentId = agentId;
     }
 
 }

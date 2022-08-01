@@ -1,9 +1,7 @@
 package learn.field_agent.data;
 
 import learn.field_agent.data.mappers.AliasMapper;
-import learn.field_agent.data.mappers.LocationMapper;
 import learn.field_agent.models.Alias;
-import learn.field_agent.models.Location;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -46,7 +44,7 @@ public class AliasJdbcTemplateRepository implements AliasRepository{
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, alias.getName());
             ps.setString(2, alias.getPersona());
-            ps.setInt(3, alias.getAgent_id());
+            ps.setInt(3, alias.getAgentId());
             return ps;
         }, keyHolder);
 
@@ -57,6 +55,17 @@ public class AliasJdbcTemplateRepository implements AliasRepository{
         alias.setAliasId(keyHolder.getKey().intValue());
         return alias;
     }
+
+    /*private void addAgent(Agent agent) {
+
+        final String sql = "select alias_id, `name`, persona, agent_id " +
+                "from alias al " +
+                // "inner join alias al on al.agent_id = a.agent_id " +
+                "where al.agent_id =  ?;";
+
+        var agentAliases = jdbcTemplate.query(sql, new AgentMapper(), agent.getAgentId());
+        agent.setAliases(agentAliases);
+    }*/
 
 
 }
