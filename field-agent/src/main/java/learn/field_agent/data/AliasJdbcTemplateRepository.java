@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -71,6 +72,12 @@ public class AliasJdbcTemplateRepository implements AliasRepository{
                 alias.getName(), alias.getPersona(), alias.getAgentId(), alias.getAliasId());
 
         return rowsUpdated > 0;
+    }
+
+    @Override
+    // @Transactional
+    public boolean deleteById(int aliasId) {
+        return jdbcTemplate.update("delete from alias where alias_id = ?", aliasId) > 0;
     }
 
 

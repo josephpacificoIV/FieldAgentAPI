@@ -137,6 +137,19 @@ class AliasServiceTest {
         assertEquals(ResultType.SUCCESS, actual.getType());
     }
 
+    /* Delete Tests */
+    @Test
+    void shouldNotDeleteMissingAlias() {
+        when(repository.deleteById(10)).thenReturn(false);
+        assertFalse(service.deleteById(10));
+    }
+
+    @Test
+    void shouldDelete() {
+        when(repository.deleteById(1)).thenReturn(true);
+        assertTrue(service.deleteById(1));
+    }
+
 
 
 

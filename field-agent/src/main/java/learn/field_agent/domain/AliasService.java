@@ -55,6 +55,10 @@ public class AliasService {
         return result;
     }
 
+    public boolean deleteById(int aliasId) {
+        return repository.deleteById(aliasId);
+    }
+
 
 
 

@@ -73,5 +73,16 @@ class AliasJdbcTemplateRepositoryTest {
         //assertEquals(alias.getName(), repository.findById(1).getName());
     }
 
+    @Test
+    void shouldDelete() {
+        assertTrue(repository.deleteById(2));
+        assertFalse(repository.deleteById(2));
+    }
+
+    @Test
+    void shouldNotDeleteMissing() {
+        assertFalse(repository.deleteById(200));
+    }
+
 
 }
