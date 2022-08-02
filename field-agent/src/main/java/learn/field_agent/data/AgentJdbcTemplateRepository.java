@@ -2,6 +2,7 @@ package learn.field_agent.data;
 
 import learn.field_agent.data.mappers.AgentAgencyMapper;
 import learn.field_agent.data.mappers.AgentMapper;
+import learn.field_agent.data.mappers.AliasMapper;
 import learn.field_agent.models.Agent;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -38,11 +39,17 @@ public class AgentJdbcTemplateRepository implements AgentRepository {
                 + "from agent "
                 + "where agent_id = ?;";
 
+        /*final String sql = "select a.agent_id, a.first_name, a.middle_name, a.last_name, a.dob, a.height_in_inches, al.persona " +
+                "from agent a " +
+                "inner join alias al on al.agent_id = a.agent_id " +
+                "where a.agent_id =  ?;";*/
+
         Agent agent = jdbcTemplate.query(sql, new AgentMapper(), agentId).stream()
                 .findFirst().orElse(null);
 
         if (agent != null) {
             addAgencies(agent);
+            addAlias(agent);
         }
 
         return agent;
@@ -97,13 +104,14 @@ public class AgentJdbcTemplateRepository implements AgentRepository {
     @Transactional
     public boolean deleteById(int agentId) {
         jdbcTemplate.update("delete from agency_agent where agent_id = ?;", agentId);
+        jdbcTemplate.update("delete from alias where agent_id = ?;", agentId);
         return jdbcTemplate.update("delete from agent where agent_id = ?;", agentId) > 0;
     }
 
     private void addAgencies(Agent agent) {
 
         final String sql = "select aa.agency_id, aa.agent_id, aa.identifier, aa.activation_date, aa.is_active, "
-                + "sc.security_clearance_id, sc.name security_clearance_name, "
+                + "sc.security_clearance_id, sc.name as security_clearance_name, "
                 + "a.short_name, a.long_name "
                 + "from agency_agent aa "
                 + "inner join agency a on aa.agency_id = a.agency_id "
@@ -112,5 +120,16 @@ public class AgentJdbcTemplateRepository implements AgentRepository {
 
         var agentAgencies = jdbcTemplate.query(sql, new AgentAgencyMapper(), agent.getAgentId());
         agent.setAgencies(agentAgencies);
+    }
+
+    private void addAlias(Agent agent) {
+
+        final String sql = "select alias_id, `name`, persona, agent_id " +
+                "from alias al " +
+                // "inner join alias al on al.agent_id = a.agent_id " +
+                "where al.agent_id =  ?;";
+
+        var agentAliases = jdbcTemplate.query(sql, new AliasMapper(), agent.getAgentId());
+        agent.setAliases(agentAliases);
     }
 }

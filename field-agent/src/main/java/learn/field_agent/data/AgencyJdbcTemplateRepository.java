@@ -96,6 +96,7 @@ public class AgencyJdbcTemplateRepository implements AgencyRepository {
                 + "from location "
                 + "where agency_id = ?";
 
+        // fetch all locations and map them
         var locations = jdbcTemplate.query(sql, new LocationMapper(), agency.getAgencyId());
         agency.setLocations(locations);
     }

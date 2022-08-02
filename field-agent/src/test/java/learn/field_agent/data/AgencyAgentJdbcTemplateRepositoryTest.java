@@ -45,6 +45,7 @@ class AgencyAgentJdbcTemplateRepositoryTest {
         AgencyAgent agencyAgent = makeAgencyAgent();
         agencyAgent.setIdentifier("008"); // avoid duplicates
         agencyAgent.getAgent().setAgentId(1);
+
         assertTrue(repository.update(agencyAgent));
 
         agencyAgent.setAgencyId(12);
